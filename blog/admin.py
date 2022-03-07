@@ -2,7 +2,8 @@ from django.contrib import admin
 from .models import (
     Article,
     IPAddress,
-    Category
+    Category,
+    Comment
 )
 
 # Register your models here.
@@ -29,10 +30,12 @@ class ArticleAdmin(admin.ModelAdmin):
         CategoryInline
     ]
     fieldsets = (
-        ('اطلاعات مقاله', {'fields': ('title', 'description', 'image', 'author')}),
+        ('اطلاعات مقاله', {
+         'fields': ('title', 'description', 'image', 'author')}),
         ('بازدید و انتشار', {'fields': ('hits', 'publish_time')})
     )
-    list_display  = ('title', 'get_thumbnail', 'publish_time', 'created', 'updated')
+    list_display = ('title', 'get_thumbnail',
+                    'publish_time', 'created', 'updated')
     list_filter = ('publish_time', 'created')
 
     def get_queryset(self, request):
@@ -42,6 +45,17 @@ class ArticleAdmin(admin.ModelAdmin):
         return qs.filter(author=request.user)
 
 
+class CommentAdmin(admin.ModelAdmin):
+    readonly_fields = ('created', 'updated')
+
+    def get_queryset(self, request):
+        qs = super(CommentAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(article=request.article)
+
+
 admin.site.register(IPAddress, IPAddressAdmin)  # registering IPAddress model
 admin.site.register(Category, CategoryAdmin)  # registering Category model
 admin.site.register(Article, ArticleAdmin)  # registering Article model
+admin.site.register(Comment, CommentAdmin)  # registering Comment model

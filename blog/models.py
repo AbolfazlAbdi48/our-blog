@@ -52,7 +52,7 @@ class Category(models.Model):
 
 class Article(models.Model):
     """
-    The article model.
+    The Article model.
     """
 
     title = models.CharField(max_length=75, verbose_name='عنوان')
@@ -90,3 +90,28 @@ class Article(models.Model):
         return format_html(f"<img width=100 height=75 style='border-radius: 5px;' src='{self.image.url}'>")
 
     get_thumbnail.short_description = "تصویر"
+
+
+class Comment(models.Model):
+    """
+    The Comment model
+    """
+    owner = models.ForeignKey(
+        User, verbose_name='نظر دهنده', null=False, blank=False
+        )
+    article = models.ForeignKey(
+        Article, on_delete=models.CASCADE, verbose_name='مقاله', null=False, blank=False
+    )
+    massage = models.TextField(
+        verbose_name='متن نظر', null=False, blank=False
+        )
+    created = models.DateTimeField(
+        auto_now_add=True, verbose_name='تاریخ ایجاد'
+    )
+    updated = models.DateTimeField(
+        auto_now=True, verbose_name='تاریخ آخرین ویرایش'
+    )
+
+    class Meta:
+        verbose_name = 'نظر'
+        verbose_name_plural = 'نظرات'
