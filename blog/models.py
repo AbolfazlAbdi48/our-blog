@@ -97,14 +97,14 @@ class Comment(models.Model):
     The Comment model
     """
     owner = models.ForeignKey(
-        User, verbose_name='نظر دهنده', null=False, blank=False
-        )
+        User, verbose_name='نظر دهنده', on_delete=models.CASCADE, null=False, blank=False
+    )
     article = models.ForeignKey(
         Article, on_delete=models.CASCADE, verbose_name='مقاله', null=False, blank=False
     )
     massage = models.TextField(
         verbose_name='متن نظر', null=False, blank=False
-        )
+    )
     created = models.DateTimeField(
         auto_now_add=True, verbose_name='تاریخ ایجاد'
     )
@@ -115,3 +115,6 @@ class Comment(models.Model):
     class Meta:
         verbose_name = 'نظر'
         verbose_name_plural = 'نظرات'
+
+    def __str__(self):
+        return f"{self.owner} | {self.article}"

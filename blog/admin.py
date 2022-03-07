@@ -52,7 +52,7 @@ class CommentAdmin(admin.ModelAdmin):
         qs = super(CommentAdmin, self).get_queryset(request)
         if request.user.is_superuser:
             return qs
-        return qs.filter(article=request.article)
+        return qs.filter(article__author=request.user)
 
 
 admin.site.register(IPAddress, IPAddressAdmin)  # registering IPAddress model
