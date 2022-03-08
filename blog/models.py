@@ -118,3 +118,25 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.owner} | {self.article}"
+
+
+class SaveArticle(models.Model):
+    user = models.ForeignKey(
+        User, verbose_name='کاربر', on_delete=models.CASCADE
+    )
+    article = models.OneToOneField(
+        Article, verbose_name="مقاله", on_delete=models.CASCADE
+    )
+    created = models.DateTimeField(
+        auto_now_add=True, verbose_name='تاریخ ایجاد'
+        )
+    updated = models.DateTimeField(
+        auto_now=True, verbose_name='تاریخ آخرین ویرایش'
+        )
+
+    class Meta:
+        verbose_name = 'ذخیره مقاله'
+        verbose_name_plural = 'مقاله های ذخیره شده'
+
+    def __str__(self):
+        return f'{self.user} | {self.article}'

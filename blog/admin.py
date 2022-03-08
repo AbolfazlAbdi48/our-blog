@@ -3,7 +3,8 @@ from .models import (
     Article,
     IPAddress,
     Category,
-    Comment
+    Comment,
+    SaveArticle
 )
 
 # Register your models here.
@@ -14,17 +15,17 @@ class IPAddressAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated')
 
 
-# category model admin
+# Category model admin
 class CategoryAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated')
 
 
-# category inline
+# Category inline
 class CategoryInline(admin.TabularInline):
     model = Article.categories.through
 
 
-# article model admin
+# Article model admin
 class ArticleAdmin(admin.ModelAdmin):
     inlines = [
         CategoryInline
@@ -45,6 +46,7 @@ class ArticleAdmin(admin.ModelAdmin):
         return qs.filter(author=request.user)
 
 
+# Comment model Admin
 class CommentAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated')
 
@@ -55,7 +57,19 @@ class CommentAdmin(admin.ModelAdmin):
         return qs.filter(article__author=request.user)
 
 
+# SaveArticle model Admin
+class SaveArticleAdmin(admin.ModelAdmin):
+    readonly_fields = ['created', 'updated']
+
+    def get_queryset(self, request):
+        qs = super(SaveArticleAdmin, self).get_queryset(request)
+        if request.is_superuser:
+            return qs
+        return qs.filter(SaveArticle__user=request.user)
+
+
 admin.site.register(IPAddress, IPAddressAdmin)  # registering IPAddress model
 admin.site.register(Category, CategoryAdmin)  # registering Category model
 admin.site.register(Article, ArticleAdmin)  # registering Article model
 admin.site.register(Comment, CommentAdmin)  # registering Comment model
+admin.site.register(SaveArticle, SaveArticleAdmin)  # registering SaveArticle model
