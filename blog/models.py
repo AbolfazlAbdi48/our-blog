@@ -64,7 +64,7 @@ class Article(models.Model):
         upload_to='articles/', verbose_name='تصویر مقاله'
     )
     hits = models.ManyToManyField(
-        IPAddress, related_name='articles', null=True, blank=True, verbose_name='بازدید ها'
+        IPAddress, related_name='articles', blank=True, verbose_name='بازدید ها'
     )
     publish_time = models.DateTimeField(
         default=timezone.now, verbose_name='زمان انتشار'
@@ -120,18 +120,40 @@ class Comment(models.Model):
         return f"{self.owner} | {self.article}"
 
 
+class Like(models.Model):
+    """
+    The Like model
+    """
+    owner = models.ForeignKey(
+        User, verbose_name='توسط', on_delete=models.CASCADE, null=False, blank=False
+    )
+    article = models.ForeignKey(
+        Article, on_delete=models.CASCADE, verbose_name='مقاله', null=False, blank=False
+    )
+    created = models.DateTimeField(
+        auto_now_add=True, verbose_name='تاریخ لایک'
+    )
+
+    class Meta:
+        verbose_name = 'لایک'
+        verbose_name_plural = 'لایک ها'
+
+    def __str__(self):
+        return f"{self.owner} | {self.article}"
+
+
 class SaveArticle(models.Model):
+    """
+    The SaveArticle model
+    """
     user = models.ForeignKey(
-        User, verbose_name='کاربر', on_delete=models.CASCADE
+        User, verbose_name='توسط', on_delete=models.CASCADE
     )
     article = models.OneToOneField(
         Article, verbose_name="مقاله", on_delete=models.CASCADE
     )
     created = models.DateTimeField(
         auto_now_add=True, verbose_name='تاریخ ایجاد'
-        )
-    updated = models.DateTimeField(
-        auto_now=True, verbose_name='تاریخ آخرین ویرایش'
         )
 
     class Meta:
