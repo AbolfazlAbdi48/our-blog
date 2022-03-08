@@ -3,7 +3,8 @@ from .models import (
     Article,
     IPAddress,
     Category,
-    Comment
+    Comment,
+    Like
 )
 
 # Register your models here.
@@ -55,7 +56,22 @@ class CommentAdmin(admin.ModelAdmin):
         return qs.filter(article__author=request.user)
 
 
+class LikeAdmin(admin.ModelAdmin):
+    readonly_fields = ('created',)
+    list_filter = ('created',)
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def get_queryset(self, request):
+        like_qs = super(LikeAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return like_qs
+        return like_qs.filter(article__author=request.user)
+
+
 admin.site.register(IPAddress, IPAddressAdmin)  # registering IPAddress model
 admin.site.register(Category, CategoryAdmin)  # registering Category model
 admin.site.register(Article, ArticleAdmin)  # registering Article model
 admin.site.register(Comment, CommentAdmin)  # registering Comment model
+admin.site.register(Like, LikeAdmin)  # registering Like model
