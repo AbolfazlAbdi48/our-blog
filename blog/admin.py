@@ -78,9 +78,9 @@ class SaveArticleAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(SaveArticleAdmin, self).get_queryset(request)
-        if request.is_superuser:
+        if request.user.is_superuser:
             return qs
-        return qs.filter(SaveArticle__user=request.user)
+        return qs.filter(article__user=request.user)
 
 
 admin.site.register(IPAddress, IPAddressAdmin)  # registering IPAddress model
