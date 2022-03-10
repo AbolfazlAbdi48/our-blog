@@ -91,6 +91,9 @@ class Article(models.Model):
 
     get_thumbnail.short_description = "تصویر"
 
+    def get_replace_name(self):
+        return f"{self.title.replace(' ', '-')}"
+
 
 class Comment(models.Model):
     """
