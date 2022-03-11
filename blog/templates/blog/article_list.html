@@ -18,7 +18,9 @@
                         </div>
                         <div class="article-overlay">
                             <div class="my-4 mx-1">
-                                <a href="#" class="badge bg-primary">{{ article.title }}</a>
+                                {% for category in article.categories.all %}
+                                    <a href="#" class="badge bg-primary">{{ category }}</a>
+                                {% endfor %}
                             </div>
                             <h3 class="my-4 mx-2 article-title">
                                 <a href="#">{{ article.title }}</a>
