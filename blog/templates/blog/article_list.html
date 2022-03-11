@@ -14,7 +14,7 @@
                     {% for article in articles %}
                     <article class="col-md-4 article-card">
                         <div>
-                            <img src="media/{{ article.image }}" class="article-img" alt="article 1">
+                            <img src="{{ article.image.url }}" class="article-img" alt="article 1">
                         </div>
                         <div class="article-overlay">
                             <div class="my-4 mx-1">
