@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
 
@@ -14,10 +15,9 @@ from .models import (
 
 def author_view(request, username):
     print(username)
-    user = get_object_or_404(User, username=username)
-    articles = Article.objects.filter(author=user)
+    user = get_object_or_404(User, username=username, is_staff=True)
     context = {
         'user': user,
-        'user_articles': articles
+        'user_articles': user.articles.filter(publish_time__lte=timezone.now())
     }
     return render(request, 'account/author_articles.html', context=context)
