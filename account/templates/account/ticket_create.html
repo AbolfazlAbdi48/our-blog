@@ -1,0 +1,58 @@
+{% extends '_base.html' %}
+
+{% block title %}ارسال تیکت | بلاگ ما{% endblock title %}
+
+{% block content %}
+<!-- content section start -->
+<section class="container my-5">
+    <div class="row justify-content-center border py-4">
+        {% if request.META.HTTP_REFERER == request.build_absolute_uri %}
+        <section class="col-md-12 mb-3">
+            <div class="alert alert-info">
+                تیکت شما با موفقیت ارسال شد.
+            </div>
+        </section>
+        {% endif %}
+
+        <h6 class="text-center mb-3">ارسال تیکت به پشتیبانی وبسایت</h6>
+
+        {% if request.user.is_authenticated %}
+        <section class="col-md-7 mb-5">
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        {{ form.subject }}
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        {{ form.message }}
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-outline-success">ارسال تیکت</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+        {% else %}
+        <section class="col-md-12">
+            <div class="alert alert-success">
+                برای ارسال تیکت به پشتیبانی ابتدا <a href="#">وارد</a> حساب خود شوید
+            </div>
+        </section>
+        {% endif %}
+
+        <section class="col-md-7 mb-5">
+            <h6>درباره ما</h6>
+            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و
+                متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و
+                کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده،
+                شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی
+                الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و
+                دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای
+                اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+        </section>
+    </div>
+</section>
+<!-- content section end -->
+
+{% endblock content %}

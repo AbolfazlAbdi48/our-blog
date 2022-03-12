@@ -1,13 +1,14 @@
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import View
+from django.views.generic import CreateView
 
 from blog.models import (
     Article
 )
-
+from .forms import TicketForm
 from .models import (
-    User
+    User,
+    Ticket
 )
 
 
@@ -21,3 +22,15 @@ def author_view(request, username):
         'user_articles': user.articles.filter(publish_time__lte=timezone.now())
     }
     return render(request, 'account/author_articles.html', context=context)
+
+
+class SendTicket(CreateView):
+    model = Ticket()
+    template_name = 'account/ticket_create.html'
+    form_class = TicketForm
+
+    def form_valid(self, form):
+        ticket = form.save(commit=False)
+        ticket.user = self.request.user
+        ticket.save()
+        return super().form_invalid(form)
