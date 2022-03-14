@@ -1,9 +1,11 @@
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import CreateView
+from django.views.generic import CreateView, View
 
 from blog.models import (
-    Article
+    Article,
+    Like,
+    SaveArticle
 )
 from .forms import TicketForm
 from .models import (
@@ -34,3 +36,12 @@ class SendTicket(CreateView):
         ticket.user = self.request.user
         ticket.save()
         return super().form_invalid(form)
+
+
+class UserDetailView(View):
+    template = 'account/account.html'
+    def get(self, request):
+        context = {
+            'user_data': User.objects.get(username=request.user.username)
+        }
+        return render(request, self.template, context)
