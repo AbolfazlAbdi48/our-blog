@@ -2,7 +2,7 @@
 {% load static %}
 
 
-{% block title %}ابوالفضل عبدی | بلاگ ما{% endblock %}
+{% block title %} {{ user_data.get_full_name }} | بلاگ ما{% endblock %}
 
 {% block content %}
 <section class="container my-5">
@@ -22,18 +22,18 @@
                 <!-- single article -->
                 <article class="col-md-4 article-card">
                     <div>
-                        <img src="{{ liked.image.url }}" class="article-img" alt="article 1">
+                        <img src="{{ liked.article.image.url }}" class="article-img" alt="article 1">
                     </div>
                     <div class="article-overlay">
-                        {% for category in liked.categories %}
+                        {% for category in liked.article.categories.all %}
                         <div class="my-4 mx-1">
                             <a href="#" class="badge bg-primary">{{ category.name }}</a>
                         </div>
                         {% endfor %}
                         <h3 class="my-4 mx-2 article-title">
-                            <a href="#">{{ liked.title }}</a>
+                            <a href="#">{{ liked.article.title }}</a>
                         </h3>
-                        <p class="my-4 mx-2 text-light">{{ liked.description|truncatewords:30 }}</p>
+                        <p class="my-4 mx-2 text-light">{{ liked.article.description|truncatewords:30 }}</p>
                         <div class="my-4 mx-2">
                             <a href="#" class="btn btn-primary">خواندن</a>
                         </div>
@@ -44,22 +44,22 @@
 <div class="col-md-12">
                     <h5 class="text-bold my-5 border-top pt-5">نوشته های ذخیره شده</h5>
                 </div>
-                {% for saved in user_data.save_set %}
+                {% for saved in  user_data.savearticle_set.all   %}
                 <!-- single article -->
                 <article class="col-md-4 article-card">
                     <div>
-                        <img src="{{ saved.image.url }}" class="article-img" alt="article 1">
+                        <img src="{{ saved.article.image.url }}" class="article-img" alt="article 1">
                     </div>
                     <div class="article-overlay">
-                        {% for category in saved.categories %}
+                        {% for category in saved.article.categories.all %}
                         <div class="my-4 mx-1">
                             <a href="#" class="badge bg-primary">{{ category.name }}</a>
                         </div>
                         {% endfor %}
                         <h3 class="my-4 mx-2 article-title">
-                            <a href="#">{{ saved.title }}</a>
+                            <a href="#">{{ saved.article.title }}</a>
                         </h3>
-                        <p class="my-4 mx-2 text-light">{{ saved.description|truncatewords:30 }}</p>
+                        <p class="my-4 mx-2 text-light">{{ saved.article.description|truncatewords:30 }}</p>
                         <div class="my-4 mx-2">
                             <a href="#" class="btn btn-primary">خواندن</a>
                         </div>
