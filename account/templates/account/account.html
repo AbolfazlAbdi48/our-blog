@@ -10,9 +10,10 @@
         <section class="col-md-12">
             <div class="row justify-content-center">
                 <div class="col-md-8 mb-5 border rounded p-2">
-        <div class="text-center mb-2">
-                         <img src="{{ user_data.avatar.url }}" alt="user profile" class="rounded-circle" width="100px" height="100px">
-        </div>
+                    <div class="text-center mb-2">
+                        <img src="{{ user_data.avatar.url }}" alt="user profile" class="rounded-circle" width="100px"
+                            height="100px">
+                    </div>
                     <div class="text-center">{{ user_data.get_full_name }}</div>
                 </div>
                 <div class="col-md-12">
@@ -25,11 +26,15 @@
                         <img src="{{ liked.article.image.url }}" class="article-img" alt="article 1">
                     </div>
                     <div class="article-overlay">
+<<<<<<< HEAD
                         {% for category in liked.article.categories.all %}
+=======
+>>>>>>> 9c4916ae483f4363a21059441b5ce80d8507dcc2
                         <div class="my-4 mx-1">
+                            {% for category in liked.article.categories.all %}
                             <a href="#" class="badge bg-primary">{{ category.name }}</a>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
                         <h3 class="my-4 mx-2 article-title">
                             <a href="#">{{ liked.article.title }}</a>
                         </h3>
@@ -40,22 +45,30 @@
                     </div>
                 </article>
                 {% endfor %}
-                
-<div class="col-md-12">
+
+                <div class="col-md-12">
                     <h5 class="text-bold my-5 border-top pt-5">نوشته های ذخیره شده</h5>
                 </div>
+<<<<<<< HEAD
                 {% for saved in  user_data.savearticle_set.all   %}
+=======
+                {% for saved in user_data.savearticle_set.all %}
+>>>>>>> 9c4916ae483f4363a21059441b5ce80d8507dcc2
                 <!-- single article -->
                 <article class="col-md-4 article-card">
                     <div>
                         <img src="{{ saved.article.image.url }}" class="article-img" alt="article 1">
                     </div>
                     <div class="article-overlay">
+<<<<<<< HEAD
                         {% for category in saved.article.categories.all %}
+=======
+>>>>>>> 9c4916ae483f4363a21059441b5ce80d8507dcc2
                         <div class="my-4 mx-1">
+                            {% for category in saved.article.categories.all %}
                             <a href="#" class="badge bg-primary">{{ category.name }}</a>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
                         <h3 class="my-4 mx-2 article-title">
                             <a href="#">{{ saved.article.title }}</a>
                         </h3>

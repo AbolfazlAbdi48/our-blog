@@ -1,6 +1,7 @@
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView, View
+from django.contrib import messages
 
 from blog.models import (
     Article,
@@ -35,6 +36,7 @@ class SendTicket(CreateView):
         ticket = form.save(commit=False)
         ticket.user = self.request.user
         ticket.save()
+        messages.success(self.request, 'تیکت شما با موفقیت ارسال شد.')
         return super().form_invalid(form)
 
 

@@ -6,11 +6,13 @@
 <!-- content section start -->
 <section class="container my-5">
     <div class="row justify-content-center border py-4">
-        {% if request.META.HTTP_REFERER == request.build_absolute_uri %}
+        {% if messages %}
         <section class="col-md-12 mb-3">
-            <div class="alert alert-info">
-                تیکت شما با موفقیت ارسال شد.
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message|safe }}
             </div>
+            {% endfor %}
         </section>
         {% endif %}
 
