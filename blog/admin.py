@@ -82,10 +82,14 @@ class SaveArticleAdmin(admin.ModelAdmin):
             return qs
         return qs.filter(article__user=request.user)
 
+    def has_change_permission(self, request, obj=None):
+        return False
+
 
 admin.site.register(IPAddress, IPAddressAdmin)  # registering IPAddress model
 admin.site.register(Category, CategoryAdmin)  # registering Category model
 admin.site.register(Article, ArticleAdmin)  # registering Article model
 admin.site.register(Comment, CommentAdmin)  # registering Comment model
 admin.site.register(Like, LikeAdmin)  # registering Like model
-admin.site.register(SaveArticle, SaveArticleAdmin)  # registering SaveArticle model
+# registering SaveArticle model
+admin.site.register(SaveArticle, SaveArticleAdmin)
