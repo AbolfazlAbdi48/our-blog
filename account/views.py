@@ -9,6 +9,7 @@ from .models import (
     User,
     Ticket
 )
+from .mixins import AccountPagesMixin
 
 
 # Create your views here.
@@ -36,7 +37,7 @@ class SendTicket(CreateView):
         return super().form_invalid(form)
 
 
-class UserDetailView(View):
+class UserDetailView(AccountPagesMixin, View):
     template = 'account/account.html'
 
     def get(self, request):
@@ -46,7 +47,7 @@ class UserDetailView(View):
         return render(request, self.template, context)
 
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(AccountPagesMixin, UpdateView):
     def get_object(self):
         request = self.request
         user = get_object_or_404(User, username=request.user.username)
