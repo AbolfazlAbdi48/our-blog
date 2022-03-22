@@ -55,9 +55,12 @@
     <!-- footer section end -->
 
     <!-- scripts -->
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'js/bootstrap-js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/bootstrap-js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js' %}"></script>
     <script src="{% static 'js/script.js' %}"></script>
+    {% block js_code %}
+    {% endblock %}
 </body>
 </html>

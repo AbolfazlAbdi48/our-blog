@@ -149,10 +149,10 @@ class SaveArticle(models.Model):
     """
     The SaveArticle model
     """
-    user = models.ForeignKey(
+    owner = models.ForeignKey(
         User, verbose_name='توسط', on_delete=models.CASCADE
     )
-    article = models.OneToOneField(
+    article = models.ForeignKey(
         Article, verbose_name="مقاله", on_delete=models.CASCADE
     )
     created = models.DateTimeField(
@@ -164,4 +164,4 @@ class SaveArticle(models.Model):
         verbose_name_plural = 'مقاله های ذخیره شده'
 
     def __str__(self):
-        return f'{self.user} | {self.article}'
+        return f'{self.owner} | {self.article}'

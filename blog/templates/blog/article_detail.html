@@ -2,34 +2,84 @@
 {% block title %} {{ article }} | بلاگ{% endblock title %}
 
 {% block content %}
-    <!-- content section start -->
-    <section class="container my-5">
-        <div class="row ">
-            <section class="col-md-12">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h5 class="text-bold mb-4">{{ article.title }}</h5>
-                    </div>
-                    <!-- single article -->
-                    <article class="col-md-12">
-                        <div>
-                            <img src="{{ article.image.url }}" class="img-fluid" alt="article 1">
-                        </div>
-                        <div>
-                            <div class="my-4 mx-1">
-                                {% for category in article.categories.all %}
-                                    <a href="#" class="badge bg-primary">{{ category }}</a>
-                                {% endfor %}
-                            </div>
-                            <hr>
-                            <p class="my-4 mx-2 text-dark">
-                                {{ article.description }}
-                            </p>
-                        </div>
-                    </article>
+<!-- content section start -->
+<section class="container my-5">
+    <div class="row ">
+        <section class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <h5 class="text-bold mb-4">{{ article.title }}</h5>
                 </div>
-            </section>
-        </div>
-    </section>
-    <!-- content section end -->
+                <!-- single article -->
+                <article class="col-md-12">
+                    <div>
+                        <img src="{{ article.image.url }}" class="img-fluid" alt="article 1">
+                    </div>
+                    <div>
+                        <div class="my-4 mx-1">
+                            {% for category in article.categories.all %}
+                            <a href="#" class="badge bg-primary">{{ category }}</a>
+                            {% endfor %}
+                        </div>
+                        <div class="my-4 mx-1">
+                            {% if request.user.is_authenticated %}
+                            <div style="cursor: pointer; font-size: 1.4rem;">
+                                <i class="fa fa-bookmark {% if saved %}text-danger{% endif %}" id="save-btn"></i>
+                                <i class="fa fa-heart {% if liked %}text-danger{% endif %}" id="like-btn"></i>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <hr>
+                        <p class="my-4 mx-2 text-dark">
+                            {{ article.description }}
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+</section>
+<!-- content section end -->
 {% endblock content %}
+
+{% block js_code %}
+{% if request.user.is_authenticated %}
+<script>
+    $(document).ready(function () {
+        // like
+        $('#like-btn').click(function () {
+            $.ajax({
+                url: '{% url "like_article" %}',
+                method: 'POST',
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    'article_id': '{{ article.pk }}'
+                }
+            }).done(function (data) {
+                console.log(data);
+                if (data == 'liked') {
+                    $('#like-btn').addClass('text-danger')
+                } else $('#like-btn').removeClass('text-danger')
+            })
+        })
+
+        // save
+        $('#save-btn').click(function () {
+            $.ajax({
+                url: '{% url "save_article" %}',
+                method: 'POST',
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    'article_id': '{{ article.pk }}'
+                }
+            }).done(function (data) {
+                console.log(data);
+                if (data == 'saved') {
+                    $('#save-btn').addClass('text-danger')
+                } else $('#save-btn').removeClass('text-danger')
+            })
+        })
+    })
+</script>
+{% endif %}
+{% endblock %}
