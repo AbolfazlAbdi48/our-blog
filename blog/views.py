@@ -37,9 +37,14 @@ class ArticleDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ArticleDetailView, self).get_context_data(**kwargs)
+<<<<<<< HEAD
         if self.request.user.is_authenticated:
             context['liked'] = Like.objects.filter(article=self.object, owner=self.request.user).exists()
             context['saved'] = SaveArticle.objects.filter(article=self.object, owner=self.request.user).exists()
+=======
+        context['liked'] = Like.objects.filter(article=self.object, owner=self.request.user)
+        context['saved'] = SaveArticle.objects.filter(article=self.object, owner=self.request.user)
+>>>>>>> 336d4789192629d5a8d721be99989ff77f708908
         return context
 
     template_name = 'blog/article_detail.html'
