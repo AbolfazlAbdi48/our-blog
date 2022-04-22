@@ -42,6 +42,8 @@ class ArticleDetailView(DetailView):
                 article=self.object, owner=self.request.user).exists()
             context['saved'] = SaveArticle.objects.filter(
                 article=self.object, owner=self.request.user).exists()
+            context['liked'] = Like.objects.filter(article=self.object, owner=self.request.user).exists()
+            context['saved'] = SaveArticle.objects.filter(article=self.object, owner=self.request.user).exists()
         return context
 
     template_name = 'blog/article_detail.html'
