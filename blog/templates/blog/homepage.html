@@ -1,182 +1,45 @@
 {% extends '_base.html' %}
 {% load static %}
+
+{% block title %} صفحه اصلی{% endblock title %}
 {% block content %}
-<header class="container mt-5">
-    <div class="row">
-         {% with category1=categorys.0 category2=categorys.1 category3=categorys.2 category4=categorys.3  %}
-        <div class="col-md-3">
-            <div class="border-bottom border-warning p-3">
-                <a href="#">
-                    <i class="fas fa-newspaper"></i>
-                    {{ category1.name }}
-                </a>
-            </div>
-        </div>
-        
-        <div class="col-md-3">
-            <div class="border-bottom border-danger p-3">
-                <a href="#">
-                    <i class="fas fa-kit-medical"></i>
-                    {{ category2.name }}
-                </a>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="border-bottom border-info p-3">
-                <a href="#">
-                    <i class="fas fa-code"></i>
-                    {{ category3.name }}
-                </a>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="border-bottom border-primary p-3">
-                <a href="#">
-                    <i class="fas fa-sort-alpha-asc"></i>
-                    {{ category4.name }}
-                </a>
-            </div>
-        </div>
-        {% endwith %}
-    </div>
-</header>
-<!-- header section end -->
 
 <!-- intro section start -->
 <section class="container mt-5">
     <div class="row">
-        {% for article in latest %}
-        <!-- single slide -->
-        <div class="col-md-12 intro-box fade show">
-            <div class="bg-light">
-                <div class="row">
-                    <div class="col-md-6 intro-img">
-                        {{ article.get_thumbnail }}
-                    </div>
-                    <div class="col-md-6 intro-content">
-                        
-                        <div class="my-4 mx-1">
-                        {% for category in article.categories.all %}
-                            <a href="#" class="badge bg-primary">{{ category.name }}</a>
-                        {% endfor %}
-                        </div>
-                        <h3 class="my-4 mx-2 intro-content-title">
-                            <a href="{% url 'article_detail' pk=article.pk  title=article.title %}">{{ article.title }}</a>
-                        </h3>
-                        <p class="my-4 mx-2">
-                            {{ article.description|truncatewords:110 }}
-                        </p>
-                        <div class="my-4 mx-2">
-                            <i class="fa fa-angle-right intro-handle" onclick="plusIntroSlides(-1)"></i>
-                            <i class="fa fa-angle-left intro-handle" onclick="plusIntroSlides(1)"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- end sindle slide -->
-        
 
+        {% for article in most_viewed %}
+        <div class="col-md-12 intro-box fade {% if forloop == first  %}show{% endif %}">
+            <div class="bg-light">
+                <div class="row">
+                    <div class="col-md-6 intro-img">
+                        <img src="{{ article.image.url }}" alt="Post 1">
+                    </div>
+                    <div class="col-md-6 intro-content">
+                        <div class="my-4 mx-1">
+                            {% for category in article.categories.all %}
+                                <a href="#" class="badge bg-primary">{{ category.name }}</a>
+                            {% endfor %}
+                        </div>
+                        <h3 class="my-4 mx-2 intro-content-title">
+                            <a href="{% url 'blog:article_detail' article.pk article.get_replace_name %}">{{ article.title }}</a>
+                        </h3>
+                        <p class="my-4 mx-2">
+                            {{ article.description|truncatewords:30 }}
+                        </p>
+                        <div class="my-4 mx-2">
+                            <i class="fa fa-angle-right intro-handle" onclick="plusIntroSlides(-1)"></i>
+                            <i class="fa fa-angle-left intro-handle" onclick="plusIntroSlides(1)"></i>
+                            <span>
+                                {{ forloop.counter }} از 4
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% endfor %}
-        <!-- single slide -->
-        {% comment %} <div class="col-md-12 intro-box fade">
-            <div class="bg-light">
-                <div class="row">
-                    <div class="col-md-6 intro-img">
-                        <img src="{% static 'img/posts/img-1.jpg' %}" alt="Post 1">
-                    </div>
-                    <div class="col-md-6 intro-content">
-                        <div class="my-4 mx-1">
-                            <a href="#" class="badge bg-primary">تکنولوژی</a>
-                        </div>
-                        <h3 class="my-4 mx-2 intro-content-title">
-                            <a href="#">لورم ایپسوم متن ساختگی2</a>
-                        </h3>
-                        <p class="my-4 mx-2">
-                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک
-                            است
-                            چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
-                            تکنولوژی مورد نیاز...
-                        </p>
-                        <div class="my-4 mx-2">
-                            <i class="fa fa-angle-right intro-handle" onclick="plusIntroSlides(-1)"></i>
-                            <i class="fa fa-angle-left intro-handle" onclick="plusIntroSlides(1)"></i>
-                            <span>
-                                2 از 4
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- end sindle slide -->
-        <!-- single slide -->
-        <div class="col-md-12 intro-box fade">
-            <div class="bg-light">
-                <div class="row">
-                    <div class="col-md-6 intro-img">
-                        <img src="{% static 'img/posts/img-4.jpg' %}" alt="Post 1">
-                    </div>
-                    <div class="col-md-6 intro-content">
-                        <div class="my-4 mx-1">
-                            <a href="#" class="badge bg-primary">خبری</a>
-                            <a href="#" class="badge bg-primary">طنز</a>
-                            <a href="#" class="badge bg-primary">خر</a>
-                        </div>
-                        <h3 class="my-4 mx-2 intro-content-title">
-                            <a href="#">لورم ایپسوم متن ساختگی3</a>
-                        </h3>
-                        <p class="my-4 mx-2">
-                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک
-                            است
-                            چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
-                            تکنولوژی مورد نیاز...
-                        </p>
-                        <div class="my-4 mx-2">
-                            <i class="fa fa-angle-right intro-handle" onclick="plusIntroSlides(-1)"></i>
-                            <i class="fa fa-angle-left intro-handle" onclick="plusIntroSlides(1)"></i>
-                            <span>
-                                3 از 4
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- end sindle slide -->
-        <!-- single slide -->
-        <div class="col-md-12 intro-box fade">
-            <div class="bg-light">
-                <div class="row">
-                    <div class="col-md-6 intro-img">
-                        <img src="{% static 'img/posts/img-3.jpg' %}" alt="Post 1">
-                    </div>
-                    <div class="col-md-6 intro-content">
-                        <div class="my-4 mx-1">
-                            <a href="#" class="badge bg-primary">ورزشی</a>
-                            <a href="#" class="badge bg-primary">تکنولوژی</a>
-                        </div>
-                        <h3 class="my-4 mx-2 intro-content-title">
-                            <a href="#">لورم ایپسوم متن ساختگی4</a>
-                        </h3>
-                        <p class="my-4 mx-2">
-                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک
-                            است
-                            چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
-                            تکنولوژی مورد نیاز...
-                        </p>
-                        <div class="my-4 mx-2">
-                            <i class="fa fa-angle-right intro-handle" onclick="plusIntroSlides(-1)"></i>
-                            <i class="fa fa-angle-left intro-handle" onclick="plusIntroSlides(1)"></i>
-                            <span>
-                                4 از 4
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- end sindle slide --> {% endcomment %}
+
     </div>
 </section>
 <!-- intro section end -->
@@ -191,56 +54,63 @@
                 <div class="col-md-12">
                     <h5 class="text-bold mb-4">آخرین پست ها</h5>
                 </div>
-                {% for article in latest2 %}
-                <!-- single article -->
+                
+                {% for article in latest %}
                 <article class="col-md-6 article-card">
-                    <img src="{{ article.image.url }}" class="article-img" alt="article 1">
+                    <div>
+                        <img src="{{ article.image.url }}" class="article-img" alt="{{ article.title }}">
+                    </div>
                     <div class="article-overlay">
                         <div class="my-4 mx-1">
                             {% for category in article.categories.all %}
                             <a href="#" class="badge bg-primary">{{ category.name }}</a>
-                            {% endfor %}
+                             {% endfor %}
                         </div>
                         <h3 class="my-4 mx-2 article-title">
-                            <a href="#">{{ article.title }}</a>
+                            <a href="{% url 'blog:article_detail' article.pk article.get_replace_name %}">{{ article.title }}</a>
                         </h3>
                         <p class="my-4 mx-2 text-light">
-                            {{ article.description|truncatewords:20 }}
+                            {{ article.description|truncatewords:30 }}
                         </p>
                         <div class="my-4 mx-2">
-                            <a href="{% url 'article_detail' pk=article.pk  title=article.title %}" class="btn btn-primary">خواندن</a>
+                            <a href="{% url 'blog:article_detail' article.pk article.get_replace_name %}" class="btn btn-primary">خواندن</a>
                         </div>
                     </div>
                 </article>
                 {% endfor %}
+
                 <div class="col-md-12 my-3">
-                    <a href="{% url 'article_list' %}" class="btn btn-outline-primary">همه مقالات</a>
+                    <a href="{% url 'blog:article_list' %}" class="btn btn-outline-primary">همه پست ها</a>
                 </div>
             </div>
         </section>
         <aside class="col-md-4">
             <h5 class="text-bold mb-4">همه دسته بندی ها</h5>
             <ul class="list-unstyled mb-4">
-                {% for category in categorys %}
+                
+                {% for category in categories %}
                 <li class="border-bottom mb-3 pb-2 d-flex justify-content-between align-items-center">
                     <a href="#" class="small">
                         <i class="fa fa-angle-left"></i>
                         {{ category.name }}
                     </a>
-                    <span class="badge bg-secondary rounded-pill">{{ category.articles.all }}</span>
+                    <span class="badge bg-secondary rounded-pill">{{ category.articles.all.count }}</span>
                 </li>
                 {% endfor %}
+
             </ul>
             <h5 class="text-bold mb-4">نویسنده های برتر</h5>
             <ul class="list-unstyled mb-4">
-                {% for user in topusers %}
+                
+                {% for article in popular_authors %}
                 <li class="border-bottom mb-3 pb-2">
-                    <a href="{{ user.username }}">
-                        <img src="{{ user.avatar.url }}" class="aside-author-img" alt="">
-                        {{ user.get_full_name }}
+                    <a href="{% url 'account:author_detail' article.author.username %}">
+                        <img src="{{ article.author.avatar.url }}" class="aside-author-img" alt="">
+                        {{ article.author.get_full_name }}
                     </a>
                 </li>
                 {% endfor %}
+
             </ul>
         </aside>
     </div>

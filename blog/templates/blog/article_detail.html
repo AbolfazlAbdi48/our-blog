@@ -42,17 +42,14 @@
 <!-- content section end -->
 {% endblock content %}
 
-{% block js_code %}
-<<<<<<< HEAD
 {% if request.user.is_authenticated %}
-=======
->>>>>>> 336d4789192629d5a8d721be99989ff77f708908
+{% block js_code %}
 <script>
     $(document).ready(function () {
         // like
         $('#like-btn').click(function () {
             $.ajax({
-                url: '{% url "like_article" %}',
+                url: '{% url "blog:like_article" %}',
                 method: 'POST',
                 data: {
                     'csrfmiddlewaretoken': '{{ csrf_token }}',
@@ -69,7 +66,7 @@
         // save
         $('#save-btn').click(function () {
             $.ajax({
-                url: '{% url "save_article" %}',
+                url: '{% url "blog:save_article" %}',
                 method: 'POST',
                 data: {
                     'csrfmiddlewaretoken': '{{ csrf_token }}',
@@ -84,8 +81,5 @@
         })
     })
 </script>
-<<<<<<< HEAD
-{% endif %}
-=======
->>>>>>> 336d4789192629d5a8d721be99989ff77f708908
 {% endblock %}
+{% endif %}

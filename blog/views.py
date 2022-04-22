@@ -37,34 +37,37 @@ class ArticleDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ArticleDetailView, self).get_context_data(**kwargs)
-<<<<<<< HEAD
         if self.request.user.is_authenticated:
-            context['liked'] = Like.objects.filter(article=self.object, owner=self.request.user).exists()
-            context['saved'] = SaveArticle.objects.filter(article=self.object, owner=self.request.user).exists()
-=======
-        context['liked'] = Like.objects.filter(article=self.object, owner=self.request.user)
-        context['saved'] = SaveArticle.objects.filter(article=self.object, owner=self.request.user)
->>>>>>> 336d4789192629d5a8d721be99989ff77f708908
+            context['liked'] = Like.objects.filter(
+                article=self.object, owner=self.request.user).exists()
+            context['saved'] = SaveArticle.objects.filter(
+                article=self.object, owner=self.request.user).exists()
         return context
 
     template_name = 'blog/article_detail.html'
     context_object_name = 'article'
 
 
-class HomePageView(ListView):
-    paginate_by = 1
-    model = Article
-    query_set = Article.objects.filter(
-        publish_time__lte=timezone.now()).order_by('-publish_time')[0:3]
-    context_object_name = 'latest'
-    template_name = 'blog/homepage.html'
+def home_page(request):
+    most_viewed_articles = Article.objects.filter(
+        publish_time__lte=timezone.now()
+    ).order_by('-hits')
 
-    def get_context_data(self, **kwargs):
-        context = super(HomePageView, self).get_context_data(**kwargs)
-        context['topusers'] = User.objects.filter(is_staff=True)[0: 2]
-        context['categorys'] = Category.objects.all()[0: 19]
-        context['latest2'] = Article.objects.all().order_by('hits')[0: 3]
-        return context
+    latest_articles = Article.objects.filter(
+        publish_time__lte=timezone.now()
+    ).order_by('-id')[:4]
+
+    categories = Category.objects.filter(is_active=True)
+
+    popular_authors = most_viewed_articles.distinct()[:2]
+
+    context = {
+        'most_viewed': most_viewed_articles[:4],
+        'latest': latest_articles,
+        'categories': categories,
+        'popular_authors': popular_authors
+    }
+    return render(request, 'blog/homepage.html', context)
 
 
 def like_article(request):
@@ -91,7 +94,8 @@ def save_article(request):
         user = request.user
 
         try:
-            save_article = SaveArticle.objects.get(article__id=article_id, owner=user)
+            save_article = SaveArticle.objects.get(
+                article__id=article_id, owner=user)
             save_article.delete()
             return HttpResponse('save deleted')
         except SaveArticle.DoesNotExist:
