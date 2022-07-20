@@ -23,13 +23,13 @@
                                 {% endfor %}
                             </div>
                             <h3 class="my-4 mx-2 article-title">
-                                <a href="#">{{ article.title }}</a>
+                                <a href="{% url 'blog:article_detail' article.pk article.get_replace_name %}">{{ article.title }}</a>
                             </h3>
                             <p class="my-4 mx-2 text-light">
                                 {{ article.description|truncatewords:30 }}
                             </p>
                             <div class="my-4 mx-2">
-                                <a href="#" class="btn btn-primary">خواندن</a>
+                                <a href="{% url 'blog:article_detail' article.pk article.get_replace_name %}" class="btn btn-primary">خواندن</a>
                             </div>
                         </div>
                     </article>

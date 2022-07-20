@@ -19,7 +19,7 @@
                     <div class="col-md-12">
                         <h5 class="text-bold mb-4">نوشته های اخیر</h5>
                     </div>
-                    {% for article in user_articles %}                    
+                    {% for article in user_articles %}
                     <!-- single article -->
                         <article class="col-md-4 article-card">
                             <div>
@@ -27,16 +27,16 @@
                             </div>
                             <div class="article-overlay">
                                 <div class="my-4 mx-1">
-                                    {% for category in article.categories.all %}                                        
+                                    {% for category in article.categories.all %}
                                         <a href="#" class="badge bg-primary">{{ category }}</a>
-                                    {% endfor %}                                        
+                                    {% endfor %}
                                 </div>
                                 <h3 class="my-4 mx-2 article-title">
-                                    <a href="#">{{ article.title }}</a>
+                                    <a href="{% url 'blog:article_detail' article.pk article.get_replace_name %}">{{ article.title }}</a>
                                 </h3>
                                 <p class="my-4 mx-2 text-light">{{ article.description|truncatewords:30 }}</p>
                                 <div class="my-4 mx-2">
-                                    <a href="#" class="btn btn-primary">خواندن</a>
+                                    <a href="{% url 'blog:article_detail' article.pk article.get_replace_name %}" class="btn btn-primary">خواندن</a>
                                 </div>
                             </div>
                     </article>
