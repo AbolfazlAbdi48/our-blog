@@ -1,6 +1,7 @@
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView, DetailView
+from django.views import View
 from django.utils import timezone
 from django.db.models import Count
 from .models import (
@@ -50,26 +51,28 @@ class ArticleDetailView(DetailView):
     context_object_name = 'article'
 
 
-def home_page(request):
-    most_viewed_articles = Article.objects.filter(
-        publish_time__lte=timezone.now()
-    ).order_by('-hits')
+class HomePageView(View):
+    def get(self, request):
+        most_viewed_articles = Article.objects.filter(
+            publish_time__lte=timezone.now()
+        ).order_by('-hits')
 
-    latest_articles = Article.objects.filter(
-        publish_time__lte=timezone.now()
-    ).order_by('-id')[:4]
+        latest_articles = Article.objects.filter(
+            publish_time__lte=timezone.now()
+        ).order_by('-id')[:4]
 
-    categories = Category.objects.filter(is_active=True)
+        categories = Category.objects.filter(is_active=True)
 
-    popular_authors = most_viewed_articles.distinct()[:2]
+        popular_authors = most_viewed_articles.distinct()[:2]
 
-    context = {
-        'most_viewed': most_viewed_articles[:4],
-        'latest': latest_articles,
-        'categories': categories,
-        'popular_authors': popular_authors
-    }
-    return render(request, 'blog/homepage.html', context)
+        context = {
+            'most_viewed': most_viewed_articles[:4],
+            'latest': latest_articles,
+            'categories': categories,
+            'popular_authors': popular_authors
+        }
+
+        return render(request, 'blog/homepage.html', context)
 
 
 def like_article(request):
