@@ -54,7 +54,7 @@
                 <div class="col-md-12">
                     <h5 class="text-bold mb-4">آخرین پست ها</h5>
                 </div>
-                
+
                 {% for article in latest %}
                 <article class="col-md-6 article-card">
                     <div>
@@ -87,7 +87,7 @@
         <aside class="col-md-4">
             <h5 class="text-bold mb-4">همه دسته بندی ها</h5>
             <ul class="list-unstyled mb-4">
-                
+
                 {% for category in categories %}
                 <li class="border-bottom mb-3 pb-2 d-flex justify-content-between align-items-center">
                     <a href="#" class="small">
@@ -101,7 +101,7 @@
             </ul>
             <h5 class="text-bold mb-4">نویسنده های برتر</h5>
             <ul class="list-unstyled mb-4">
-                
+
                 {% for article in popular_authors %}
                 <li class="border-bottom mb-3 pb-2">
                     <a href="{% url 'account:author_detail' article.author.username %}">

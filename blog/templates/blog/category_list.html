@@ -1,0 +1,33 @@
+{% extends '_base.html' %}
+{% block title %}دسته بندی ها | بلاگ{% endblock title %}
+
+{% block content %}
+    <!-- content section start -->
+    <section class="container my-5">
+        <div class="row">
+            <section class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="text-bold mb-4">همه دسته بندی ها</h5>
+                    </div>
+                    <!-- single article -->
+                    {% for category in categories %}
+                    <category class="col-md-4 article-card">
+                        <div>
+                            <h5>
+                              <a class="col-md-4 article-card tag-a" href="#">
+                                {{ category.name }}
+                              </a>
+                            </h5>
+                          {% comment %}
+                          <img class="article-img" src="{{ category.image.url }}" alt="">
+                          {% endcomment %}
+                        </div>
+                    </category>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    </section>
+    <!-- content section end -->
+{% endblock content %}

@@ -75,6 +75,13 @@ class HomePageView(View):
         return render(request, 'blog/homepage.html', context)
 
 
+class CategoryList(ListView):
+    model = Category
+    queryset = Category.objects.all()
+    context_object_name = 'categories'
+    template_name = 'category_list.html'
+
+
 def like_article(request):
     if request.method == "POST":
         article_id = request.POST['article_id']
