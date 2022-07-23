@@ -31,6 +31,9 @@ class Category(models.Model):
     Category model
     """
     name = models.CharField(max_length=200, verbose_name='دسته بندی')
+    image = models.ImageField(
+        upload_to='categories', default='defaultpics/catdefault.jpg'
+    )
     created = models.DateTimeField(
         auto_now_add=True, verbose_name='تاریخ ایجاد'
     )
