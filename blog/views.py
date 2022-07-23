@@ -61,7 +61,7 @@ class HomePageView(View):
             publish_time__lte=timezone.now()
         ).order_by('-id')[:4]
 
-        categories = Category.objects.filter(is_active=True)
+        categories = Category.objects.filter(is_active=True)[:7]
 
         popular_authors = most_viewed_articles.distinct()[:2]
 
