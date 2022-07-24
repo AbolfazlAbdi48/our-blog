@@ -4,9 +4,9 @@ from .views import (
     ArticleDetailView,
     HomePageView,
     CategoryList,
-    # home_page,
+    CategoryArticles,
     like_article,
-    save_article
+    save_article,
 )
 
 app_name = 'blog'
