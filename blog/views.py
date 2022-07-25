@@ -82,6 +82,12 @@ class CategoryList(ListView):
     template_name = 'category_list.html'
 
 
+
+def category_articles(request, id):
+    context ={'category': get_object_or_404(Category, id=id)}
+    return render(request, 'blog/category_articles.html', context)
+
+
 def like_article(request):
     if request.method == "POST":
         article_id = request.POST['article_id']

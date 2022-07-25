@@ -11,24 +11,29 @@
                         <h5 class="text-bold mb-4">همه پست ها</h5>
                     </div>
                     <!-- single article -->
+                    {% for article in category.articles.all %}
                     <article class="col-md-4 article-card">
                         <div>
-                            <img src="/media/defaultpics/catdefault.jpg" class="article-img" alt="article 1">
+                            <img src="{{ article.image.url }}" class="article-img" alt="article 1">
                         </div>
                         <div class="article-overlay">
                             <div class="my-4 mx-1">
-                                    <a href="#" class="badge bg-primary"></a>
+                              {% for category in article.categories.all %}
+                                    <a href="{% url 'blog:category_articles' category.id %}" class="badge bg-primary">{{ category.name }}</a>
+                              {% endfor %}
                             </div>
                             <h3 class="my-4 mx-2 article-title">
-                                <a href="#"></a>
+                                <a href="{% url 'blog:article_detail' article.pk article.get_replace_name %}">{{ article.title }}</a>
                             </h3>
                             <p class="my-4 mx-2 text-light">
+                              {{ article.description|truncatewords:30 }}
                             </p>
                             <div class="my-4 mx-2">
-                                <a href="#" class="btn btn-primary">خواندن</a>
+                                <a href="{% url 'blog:article_detail' article.pk article.get_replace_name %}" class="btn btn-primary">خواندن</a>
                             </div>
                         </div>
                     </article>
+                    {% endfor %}
                 </div>
             </section>
         </div>
