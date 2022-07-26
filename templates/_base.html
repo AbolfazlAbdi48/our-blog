@@ -26,13 +26,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">خانه</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'blog:home_page' %}">خانه</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/">ثبت نام</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/">مقالات</a>
+                        <a class="nav-link" aria-current="page" href="{% url 'blog:article_list' %}">مقالات</a>
                     </li>
                 </ul>
                 <form class="d-flex">
@@ -44,8 +44,8 @@
     </nav>
     <!-- nav section end -->
 
-    {% block content %}{% endblock content %} 
-    
+    {% block content %}{% endblock content %}
+
     <!-- footer section -->
    <footer class="bg-light py-3">
     <h6 class="text-bold text-center">
@@ -58,7 +58,7 @@
     <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'js/bootstrap-js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/bootstrap-js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="{% static 'js/script.js' %}"></script>
     {% block js_code %}
     {% endblock %}

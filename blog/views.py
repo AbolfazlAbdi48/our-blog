@@ -16,10 +16,6 @@ from account.models import User
 # Create your views here.
 
 
-def count_of_object(object):
-    return Count(object)
-
-
 class ArticleListView(ListView):
     model = Article
     queryset = Article.objects.filter(
@@ -122,3 +118,6 @@ def save_article(request):
             return HttpResponse('saved')
 
     raise Http404
+
+def handeler404(request, exeption):
+    return HttpResponse('Not found')
