@@ -19,3 +19,5 @@ urlpatterns = [
     path('like/', like_article, name='like_article'),
     path('save/', save_article, name='save_article'),
 ]
+
+# handler404 = 'blog.views.handeler_404'

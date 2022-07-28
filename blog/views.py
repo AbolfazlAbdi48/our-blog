@@ -119,5 +119,6 @@ def save_article(request):
 
     raise Http404
 
-def handeler404(request, exeption):
-    return HttpResponse('Not found')
+
+def handeler_404(request, exeption):
+    return render(request, 'blog/404.html', status=404)
