@@ -18,7 +18,7 @@
                         </div>
                         <div class="article-overlay">
                         <h3 class="my-4 mx-2 article-title">
-                          <a href="#">{{ category.name }}</a>
+                          <a href="{% url 'blog:category_articles' category.id %}">{{ category.name }}</a>
                         </h3>
                       </div>
                     </category>
