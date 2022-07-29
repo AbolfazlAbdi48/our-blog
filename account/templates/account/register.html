@@ -1,0 +1,42 @@
+{% extends '_base.html' %}
+
+{% block title %}ثبت نام | بلاگ ما{% endblock %}
+
+
+{% block content %}
+<section class="container my-5">
+      <div class="row">
+        <div class="col-md-12">
+            <h3>ثبت نام در بلاگ ما</h3>
+        </div>
+        <hr class="my-3">
+        <div class="col-md-7">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_table }}
+                <!-- <div class="row">
+                    <div class="col-md-12 mb-4">
+                        <label for="">نام کاربری</label>
+                        <input type="text" class="form-control mt-1" placeholder="نام کاربری">
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <label for="">ایمیل</label>
+                        <input type="eamil" class="form-control mt-1" placeholder="ایمیل">
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <label for="">رمز عبور</label>
+                        <input type="password" class="form-control mt-1" placeholder="رمز عبور">
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <label for="">تکرار رمز عبور</label>
+                        <input type="password" class="form-control mt-1" placeholder="تکرار رمز عبور">
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-outline-success">ثبت نام</button>
+                    </div>
+                </div> -->
+            </form>
+        </div>
+      </div>
+    </section>
+{% endblock %}

@@ -4,7 +4,8 @@ from .views import (
     author_view,
     SendTicket,
     UserDetailView,
-    UserUpdateView
+    UserUpdateView,
+    register_view
 )
 
 app_name = 'account'
@@ -12,5 +13,6 @@ urlpatterns = [
     path('ticket/', SendTicket.as_view(), name='ticket_crete'),
     path('<slug:username>/', author_view, name='author_detail'),
     path('account/activity/', UserDetailView.as_view(), name='account_activity'),
-    path('account/update/', UserUpdateView.as_view(), name='account_update')
+    path('account/update/', UserUpdateView.as_view(), name='account_update'),
+    path('register', register_view, name='register')
 ]
