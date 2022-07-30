@@ -1,11 +1,10 @@
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.views.generic import CreateView, View, UpdateView
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
 
-from .forms import TicketForm
+from .forms import TicketForm, RegisterForm
 from .models import (
     User,
     Ticket
@@ -60,12 +59,14 @@ class UserUpdateView(AccountPagesMixin, UpdateView):
 
 def register_view(request):
     if request.method == 'POST':
-        new_user = UserCreationForm(request.POST)
-        if new_user.is_valid():
-            new_user.save()
-            return redirect('')
-    
+        form = RegisterForm(request.POST)
+        if form.is_valid() and form.cleaned_data['password'] == form.cleaned_data['password2']:
+                new_user = User()
+                new_user.username = form.cleaned_data['username']
+                new_user.email = form.cleaned_data['email']
+                new_user.password = form.cleaned_data['password']
+                new_user.save()
+                return HttpResponseRedirect('')
     else:
-        new_user = UserCreationForm()
-    
-    return render(request, 'account/register.html', {'form': new_user})
+        form = RegisterForm()
+    return render(request=request, template_name='account/register.html', context={'form': form})

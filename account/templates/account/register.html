@@ -13,7 +13,10 @@
         <div class="col-md-7">
             <form method="post">
                 {% csrf_token %}
-                {{ form.as_table }}
+                {{ form }}
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-outline-success">ثبت نام</button>
+                </div>
                 <!-- <div class="row">
                     <div class="col-md-12 mb-4">
                         <label for="">نام کاربری</label>
