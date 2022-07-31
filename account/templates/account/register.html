@@ -13,31 +13,47 @@
         <div class="col-md-7">
             <form method="post">
                 {% csrf_token %}
-                {{ form }}
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-outline-success">ثبت نام</button>
-                </div>
-                <!-- <div class="row">
+                <div class="row">
                     <div class="col-md-12 mb-4">
-                        <label for="">نام کاربری</label>
-                        <input type="text" class="form-control mt-1" placeholder="نام کاربری">
+                        <label for="">نام کاربری:</label>
+                        {{ form.username }}
+                        {% for err in form.username.errors %}
+                            <ul>
+                                <li class="text-danger">{{ err }}</li>
+                            </ul>
+                        {% endfor %}
                     </div>
                     <div class="col-md-12 mb-4">
-                        <label for="">ایمیل</label>
-                        <input type="eamil" class="form-control mt-1" placeholder="ایمیل">
+                        <label for="">ایمیل:</label>
+                        {{ form.email }}
+                        {% for err in form.email.errors %}
+                            <ul>
+                                <li class="text-danger">{{ err }}</li>
+                            </ul>
+                        {% endfor %}
                     </div>
                     <div class="col-md-12 mb-4">
-                        <label for="">رمز عبور</label>
-                        <input type="password" class="form-control mt-1" placeholder="رمز عبور">
+                        <label for="">رمز عبور:</label>
+                        {{ form.password1 }}
+                        {% for err in form.password1.errors %}
+                            <ul>
+                                <li class="text-danger">{{ err }}</li>
+                            </ul>
+                    {% endfor %}
                     </div>
                     <div class="col-md-12 mb-4">
-                        <label for="">تکرار رمز عبور</label>
-                        <input type="password" class="form-control mt-1" placeholder="تکرار رمز عبور">
+                        <label for="">تکرار رمز عبور:</label>
+                        {{ form.password2 }}
+                        {% for err in form.password2.errors %}
+                            <ul>
+                                <li class="text-danger">{{ err }}</li>
+                            </ul>
+                    {% endfor %}
                     </div>
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-outline-success">ثبت نام</button>
                     </div>
-                </div> -->
+                </div>
             </form>
         </div>
       </div>

@@ -57,16 +57,7 @@ class UserUpdateView(AccountPagesMixin, UpdateView):
     fields = ('username', 'email', 'first_name', 'last_name', 'avatar')
 
 
-def register_view(request):
-    if request.method == 'POST':
-        form = RegisterForm(request.POST)
-        if form.is_valid() and form.cleaned_data['password'] == form.cleaned_data['password2']:
-                new_user = User()
-                new_user.username = form.cleaned_data['username']
-                new_user.email = form.cleaned_data['email']
-                new_user.password = form.cleaned_data['password']
-                new_user.save()
-                return HttpResponseRedirect('')
-    else:
-        form = RegisterForm()
-    return render(request=request, template_name='account/register.html', context={'form': form})
+class RegisterView(CreateView):
+    form_class = RegisterForm
+    success_url = reverse_lazy('blog:home_page')
+    template_name = 'account/register.html'
