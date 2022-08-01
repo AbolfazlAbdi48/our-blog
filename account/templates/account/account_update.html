@@ -8,10 +8,12 @@
 <section class="container my-5">
     <div class="row justify-content-center py-4">
         <div class="col-md-8 mb-5 border rounded p-2">
+            {% if object.avatar %}
             <div class="text-center mb-2">
                 <img src="{{ object.avatar.url }}" alt="user profile" class="rounded-circle" width="100px"
                     height="100px">
             </div>
+            {% endif %}
             <div class="text-center">{{ object.get_full_name }}</div>
         </div>
 
