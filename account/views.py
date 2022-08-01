@@ -1,10 +1,16 @@
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView, View, UpdateView
 from django.contrib import messages
+from django.contrib.auth.views import LoginView
 
-from .forms import TicketForm, RegisterForm
+
+from .forms import (
+    TicketForm,
+    RegisterForm,
+    LoginForm
+    )
 from .models import (
     User,
     Ticket
@@ -59,5 +65,9 @@ class UserUpdateView(AccountPagesMixin, UpdateView):
 
 class RegisterView(CreateView):
     form_class = RegisterForm
-    success_url = reverse_lazy('blog:home_page')
+    success_url = reverse_lazy('account:login')
     template_name = 'account/register.html'
+
+
+class SignInView(LoginView):
+    template_name = 'account/login.html'
