@@ -78,10 +78,14 @@ class CategoryList(ListView):
     template_name = 'category_list.html'
 
 
-
-def category_articles(request, id):
-    context ={'category': get_object_or_404(Category, id=id)}
-    return render(request, 'blog/category_articles.html', context)
+class CategoryDetails(DetailView):
+    def get_object(self):
+        category_pk = self.kwargs.get('pk')
+        category = get_object_or_404(
+            Category, pk=category_pk
+        )
+        return category
+    template_name = 'blog/category_articles.html'
 
 
 def like_article(request):

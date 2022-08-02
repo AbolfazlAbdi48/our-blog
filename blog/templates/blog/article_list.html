@@ -19,7 +19,7 @@
                         <div class="article-overlay">
                             <div class="my-4 mx-1">
                                 {% for category in article.categories.all %}
-                                    <a href="{% url 'blog:category_articles' category.id %}" class="badge bg-primary">{{ category }}</a>
+                                    <a href="{% url 'blog:category_articles' category.pk %}" class="badge bg-primary">{{ category }}</a>
                                 {% endfor %}
                             </div>
                             <h3 class="my-4 mx-2 article-title">

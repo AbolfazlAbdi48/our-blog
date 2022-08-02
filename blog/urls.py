@@ -4,9 +4,9 @@ from .views import (
     ArticleDetailView,
     HomePageView,
     CategoryList,
-    category_articles,
     like_article,
     save_article,
+    CategoryDetails
 )
 
 app_name = 'blog'
@@ -15,7 +15,7 @@ urlpatterns = [
     path('latest', ArticleListView.as_view(), name='article_list'),
     path('<int:pk>/<str:title>', ArticleDetailView.as_view(), name='article_detail'),
     path('categories', CategoryList.as_view(), name='categories'),
-    path('categories/<int:id>', category_articles, name='category_articles'),
+    path('categories/<int:pk>', CategoryDetails.as_view(), name='category_articles'),
     path('like/', like_article, name='like_article'),
     path('save/', save_article, name='save_article'),
 ]
