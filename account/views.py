@@ -9,7 +9,6 @@ from django.contrib.auth.views import LoginView
 from .forms import (
     TicketForm,
     RegisterForm,
-    LoginForm
     )
 from .models import (
     User,
