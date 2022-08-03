@@ -1,4 +1,3 @@
-from audioop import reverse
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.html import format_html

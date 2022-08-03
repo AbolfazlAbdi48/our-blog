@@ -3,7 +3,6 @@ from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView, DetailView
 from django.views import View
 from django.utils import timezone
-from django.db.models import Count
 from .models import (
     Article,
     Category,
@@ -11,7 +10,6 @@ from .models import (
     SaveArticle
 )
 
-from account.models import User
 
 # Create your views here.
 
